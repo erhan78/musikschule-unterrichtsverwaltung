@@ -1,0 +1,24 @@
+1) Das System ermöglicht das Anlegen, Bearbeiten und Löschen von Schülerprofilen mit Angaben wie Name, Kontaktdaten, Instrument und Unterrichtsart. (1 Stunden)
+
+Begründung:
+Ohne Schülerverwaltung ist das System nicht nutzbar, da alle weiteren Funktionen (Termine, Zahlungen) auf den Schülerdaten aufbauen. Diese Anforderung ist grundlegend für alle anderen Funktionen.
+
+2) Das System ermöglicht das Planen von Unterrichtsstunden, indem einem Schüler, einem Lehrer, einem Datum, einer Uhrzeit und einer Dauer ein Termin zugeordnet wird. (3 Stunden)
+
+Begründung:
+Die Planung der Unterrichtsstunden ist der Kern des Systems. Lehrer müssen wissen, wann sie mit welchem Schüler Unterricht haben. Die Verknüpfung von Schüler, Lehrer und Zeit ist zentral.
+
+3) Das System zeigt eine Übersicht aller geplanten Unterrichtsstunden in einer Listen- oder Kalenderansicht gefiltert nach Datum, Lehrer oder Schüler an. (3 Stunden)
+
+Begründung:
+Lehrer brauchen eine schnelle Übersicht über ihre Termine. Durch Filtermöglichkeiten wird die tägliche Arbeit stark erleichtert.
+
+4) Das System ermöglicht das Erfassen des Zahlungsstatus je Unterrichtsstunde (z. B. „offen“, „bezahlt“) für jeden Schüler. (2 Stunden)
+
+Begründung:
+Ein wichtiges Ziel des Systems ist die Verwaltung von Zahlungen. Wenn der Zahlungsstatus pro Stunde erfasst wird, können offene Beträge später leicht ausgewertet werden.
+
+5) Das System ermöglicht das Erstellen eines Monatsüberblicks pro Schüler, in dem alle Stunden und der dazugehörige Zahlungsstatus angezeigt werden. (2 Stunden)
+
+Begründung:
+Mit dieser Funktion erhält der Lehrer schnell einen Überblick, ob ein Schüler alle Stunden bezahlt hat. Das unterstützt die Kontrolle der Finanzen und macht das System praktisch im Alltag.
