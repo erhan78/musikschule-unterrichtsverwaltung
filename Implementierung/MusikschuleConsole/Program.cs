@@ -1,4 +1,6 @@
-﻿namespace MusikschuleConsole
+﻿using System.Security.Cryptography.X509Certificates;
+
+namespace MusikschuleConsole
 {
     internal class Program
     {
@@ -6,8 +8,29 @@
         {
             while (true)
             {
+                Console.Clear();
                 Menue();
                 Console.ReadLine();
+                string eingabe = Console.ReadLine();
+
+                switch (eingabe)
+                {
+                    case "1":
+                        // SchülerAnlegen();
+                        break;
+                    case "2":
+                        // UnterrichtsstundeAnlegen();
+                        break;
+                    case "3":
+                        // UnterrichtsstundenAnzeigen();
+                        break;
+                    case "0":
+                        return;
+                    default:
+                        Console.WriteLine("Ungültige Eingabe. Bitte versuchen Sie es erneut.");
+                        break;
+                }
+
             }
         }
 
