@@ -4,6 +4,9 @@ namespace MusikschuleConsole
 {
     internal class Program
     {
+        private const string SchuelerDatei = "schueler.csv";
+        private const string StundenDatei = "stunden.csv";
+
         static void Main(string[] args)
         {
             while (true)
@@ -16,7 +19,7 @@ namespace MusikschuleConsole
                 switch (eingabe)
                 {
                     case "1":
-                        // SchülerAnlegen();
+                        SchuelerAnlegen();
                         break;
                     case "2":
                         // UnterrichtsstundeAnlegen();
@@ -62,7 +65,37 @@ namespace MusikschuleConsole
             Console.Write("Telefon (optional): ");
             string telefon = Console.ReadLine();
 
-            
+            int neueId = ErmittleNaechsteId(SchuelerDatei);
+            string zeile = string.Join(";", neueId, vorname, nachname, instrument, email, telefon);
+            File.AppendAllLines(SchuelerDatei, new[] { zeile });
+
+            Console.WriteLine($"Schüler wurde mit ID {neueId} gespeichert.");
+
+        }
+
+        static int ErmittleNaechsteId(string datei)
+        {
+            if (!File.Exists(datei))
+            {
+                return 1;
+            }
+
+            string[] zeilen = File.ReadAllLines(datei);
+            int maxId = 0;
+
+            foreach (string zeile in zeilen)
+            {
+                if (string.IsNullOrWhiteSpace(zeile)) continue;
+                string[] teile = zeile.Split(';');
+                if (teile.Length == 0) continue;
+
+                if (int.TryParse(teile[0], out int id))
+                {
+                    if (id > maxId) maxId = id;
+                }
+            }
+
+            return maxId + 1;
         }
     }
 
