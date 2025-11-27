@@ -113,8 +113,32 @@ namespace MusikschuleConsole
                 return liste;
             }
 
+            string[] zeilen = File.ReadAllLines(SchuelerDatei);
+
+            foreach (string zeile in zeilen)
+            {
+                if (string.IsNullOrWhiteSpace(zeile)) continue;
+                string[] teile = zeile.Split(';');
+                if (teile.Length < 6) continue;
+
+                if (!int.TryParse(teile[0], out int id)) continue;
+
+                var s = new Schueler
+                {
+                    Id = id,
+                    Vorname = teile[1],
+                    Nachname = teile[2],
+                    Instrument = teile[3],
+                    Email = teile[4],
+                    Telefon = teile[5]
+                };
+                liste.Add(s);
+            }
+
+            return liste;
         }
-    
+    }
+
 }
 
 
