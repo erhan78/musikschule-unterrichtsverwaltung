@@ -21,7 +21,7 @@ namespace MusikschuleConsole
                         SchuelerAnlegen();
                         break;
                     case "2":
-                        // UnterrichtsstundeAnlegen();
+                        UnterrichtsstundeAnlegen();
                         break;
                     case "3":
                         // UnterrichtsstundenAnzeigen();
@@ -160,6 +160,20 @@ namespace MusikschuleConsole
 
             Console.WriteLine($"Unterrichtsstunde wurde mit ID {neueId} gespeichert.");
         }
+
+
+        static void UnterrichtsstundenAnzeigen()
+        {
+            Console.WriteLine();
+            Console.WriteLine("--- Alle Unterrichtsstunden ---");
+
+            if (!File.Exists(StundenDatei))
+            {
+                Console.WriteLine("Es wurden noch keine Unterrichtsstunden erfasst.");
+                return;
+            }
+        }
+
 
         static int LeseIntMitWiederholung(string prompt)
         {
