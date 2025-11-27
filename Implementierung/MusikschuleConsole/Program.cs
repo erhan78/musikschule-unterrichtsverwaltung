@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿using System.Globalization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace MusikschuleConsole
 {
@@ -76,6 +77,34 @@ namespace MusikschuleConsole
             Console.WriteLine();
             Console.WriteLine("--- Neue Unterrichtsstunde erfassen ---");
 
+            List<Schueler> schuler = LadeSchueler();
+
+            if (schuler.Count == 0)
+            {
+                Console.WriteLine("Keine Schüler vorhanden. Bitte legen Sie zuerst einen Schüler an.");
+                return;
+            }
+
+            Console.WriteLine("Verfügbare Schüler:");
+            foreach (var s in schuler)
+            {
+                Console.WriteLine($"[{s.Id}] {s.Vorname} {s.Nachname} - {s.Instrument}");
+            }
+
+        }
+
+        static int LeseIntMitWiederholung(string prompt)
+        {
+            while (true)
+            {
+                Console.Write(prompt);
+                string eingabe = Console.ReadLine();
+                if (int.TryParse(eingabe, out int wert))
+                {
+                    return wert;
+                }
+                Console.WriteLine("Bitte geben Sie eine gültige ganze Zahl ein.");
+            }
         }
 
 
