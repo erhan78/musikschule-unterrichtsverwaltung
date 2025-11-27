@@ -91,6 +91,28 @@ namespace MusikschuleConsole
                 Console.WriteLine($"[{s.Id}] {s.Vorname} {s.Nachname} - {s.Instrument}");
             }
 
+            int schuelerId = LeseIntMitWiederholung("Geben Sie die ID des Schülers ein: ");
+
+            Console.WriteLine("Lehrername: ");
+            string lehrer = Console.ReadLine();
+
+            DateTime datum;
+            while (true)
+            {
+                Console.Write("Datum und Uhrzeit (z.B. 25.01.2025 15:30): ");
+                string datumText = Console.ReadLine();
+                if (DateTime.TryParseExact(
+                        datumText,
+                        "dd.MM.yyyy HH:mm",
+                        CultureInfo.GetCultureInfo("de-DE"),
+                        DateTimeStyles.None,
+                        out datum))
+                {
+                    break;
+                }
+                Console.WriteLine("Ungültiges Datumsformat. Bitte erneut eingeben.");
+            }
+
         }
 
         static int LeseIntMitWiederholung(string prompt)
