@@ -24,7 +24,7 @@ namespace MusikschuleConsole
                         UnterrichtsstundeAnlegen();
                         break;
                     case "3":
-                        // UnterrichtsstundenAnzeigen();
+                        UnterrichtsstundenAnzeigen();
                         break;
                     case "0":
                         return;
