@@ -113,6 +113,52 @@ namespace MusikschuleConsole
                 Console.WriteLine("Ungültiges Datumsformat. Bitte erneut eingeben.");
             }
 
+            int dauer = LeseIntMitWiederholung("Dauer in Minuten: ");
+
+            decimal preis;
+            while (true)
+            {
+                Console.Write("Preis pro Stunde (z.B. 30.00): ");
+                string preisText = Console.ReadLine();
+                if (decimal.TryParse(preisText, NumberStyles.Currency, CultureInfo.GetCultureInfo("de-DE"), out preis))
+                {
+                    break;
+                }
+                Console.WriteLine("Ungültiges Preisformat. Bitte erneut eingeben.");
+            }
+
+            Console.WriteLine("Zahlungsstatus [1]offen - [2]bezahlt: ");
+            string zahlungsstatus = "";
+            if (Console.ReadLine() == "2")
+            {
+                zahlungsstatus = "bezahlt";
+            }
+            else
+            {
+                zahlungsstatus = "offen";
+            }
+            Console.Write("Status der Stunde [1]geplant / [2]durchgeführt / [3]abgesagt): ");
+            string status = "";
+            if(Console.ReadLine() == "2")
+            {
+                status = "durchgeführt";
+            }
+            else if (Console.ReadLine() == "3")
+            {
+                status = "abgesagt";
+            }
+            else
+            {
+                status = "geplant";
+            }
+
+            int neueId = ErmittleNaechsteId(StundenDatei);
+
+            string zeile = string.Join(";", neueId, schuelerId, lehrer,
+                datum.ToString("s"), dauer, preis, zahlungsstatus, status);
+            File.AppendAllLines(StundenDatei, new[] { zeile });
+
+            Console.WriteLine($"Unterrichtsstunde wurde mit ID {neueId} gespeichert.");
         }
 
         static int LeseIntMitWiederholung(string prompt)
