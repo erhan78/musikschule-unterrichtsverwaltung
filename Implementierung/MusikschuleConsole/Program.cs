@@ -42,6 +42,28 @@ namespace MusikschuleConsole
             Console.WriteLine("[3] Alle Unterrichtsstunden anzeigen");
             Console.WriteLine("[0] Programm beenden");
         }
+        static void SchuelerAnlegen()
+        {
+            Console.WriteLine();
+            Console.WriteLine("--- Neuen Schüler anlegen ---");
+
+            Console.Write("Vorname: ");
+            string vorname = Console.ReadLine();
+
+            Console.Write("Nachname: ");
+            string nachname = Console.ReadLine();
+
+            Console.Write("Instrument: ");
+            string instrument = Console.ReadLine();
+
+            Console.Write("E-Mail (optional): ");
+            string email = Console.ReadLine();
+
+            Console.Write("Telefon (optional): ");
+            string telefon = Console.ReadLine();
+
+            
+        }
     }
 
     class Schueler
