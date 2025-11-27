@@ -71,6 +71,14 @@ namespace MusikschuleConsole
 
         }
 
+        static void UnterrichtsstundeAnlegen()
+        {
+            Console.WriteLine();
+            Console.WriteLine("--- Neue Unterrichtsstunde erfassen ---");
+
+        }
+
+
         static int ErmittleNaechsteId(string datei)
         {
             if (!File.Exists(datei))
@@ -95,7 +103,21 @@ namespace MusikschuleConsole
 
             return maxId + 1;
         }
-    }
+
+        static List<Schueler> LadeSchueler()
+        {
+            var liste = new List<Schueler>();
+
+            if (!File.Exists(SchuelerDatei))
+            {
+                return liste;
+            }
+
+        }
+    
+}
+
+
 
     class Schueler
     {
