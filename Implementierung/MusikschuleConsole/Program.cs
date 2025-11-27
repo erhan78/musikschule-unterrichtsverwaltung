@@ -43,4 +43,14 @@ namespace MusikschuleConsole
             Console.WriteLine("[0] Programm beenden");
         }
     }
+
+    class Schueler
+    {
+        public int Id { get; set; }
+        public string Vorname { get; set; }
+        public string Nachname { get; set; }
+        public string Instrument { get; set; }
+        public string Email { get; set; }
+        public string Telefon { get; set; }
+    }
 }
