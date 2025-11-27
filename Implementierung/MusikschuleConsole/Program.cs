@@ -172,6 +172,35 @@ namespace MusikschuleConsole
                 Console.WriteLine("Es wurden noch keine Unterrichtsstunden erfasst.");
                 return;
             }
+
+            var schueler = LadeSchueler();
+            string[] zeilen = File.ReadAllLines(StundenDatei);
+
+            foreach (string zeile in zeilen)
+            {
+                if (string.IsNullOrWhiteSpace(zeile)) continue;
+
+                string[] teile = zeile.Split(';');
+                if (teile.Length < 8) continue;
+
+                int unterrichtsId = int.Parse(teile[0]);
+                int schuelerId = int.Parse(teile[1]);
+                string lehrerName = teile[2];
+                DateTime datum = DateTime.Parse(teile[3], null, DateTimeStyles.RoundtripKind);
+                int dauer = int.Parse(teile[4]);
+                decimal preis = decimal.Parse(teile[5], CultureInfo.InvariantCulture);
+                string zahlungsstatus = teile[6];
+                string status = teile[7];
+
+                var s = schueler.Find(x => x.Id == schuelerId);
+                string schuelerName = s != null
+                    ? $"{s.Vorname} {s.Nachname}"
+                    : $"(Unbekannter Schüler ID {schuelerId})";
+
+                Console.WriteLine(
+                    $"[{unterrichtsId}] {datum:dd.MM.yyyy HH:mm} - {dauer} Min - " +
+                    $"{schuelerName} bei {lehrerName} - {preis} EUR - {status} / {zahlungsstatus}");
+            }
         }
 
 
