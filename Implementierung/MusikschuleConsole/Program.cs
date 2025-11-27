@@ -11,9 +11,7 @@ namespace MusikschuleConsole
         {
             while (true)
             {
-                Console.Clear();
                 Menue();
-                Console.ReadLine();
                 string eingabe = Console.ReadLine();
 
                 switch (eingabe)
