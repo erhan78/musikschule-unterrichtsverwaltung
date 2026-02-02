@@ -24,4 +24,4 @@ namespace MusikschuleGui.Data
         public string Status { get; set; } = "geplant";             // geplant / durchgeführt / abgesagt
     }
 }
-}
+
