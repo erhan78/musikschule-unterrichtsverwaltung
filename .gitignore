@@ -2,8 +2,21 @@
 # Diese .gitignore-Datei wurde von Microsoft(R) Visual Studio automatisch erstellt.
 ################################################################################
 
-/Implementierung/MusikschuleConsole/obj
-/Implementierung/.vs
-/Implementierung/MusikschuleConsole/.vs/MusikschuleConsole
-/Implementierung/MusikschuleConsole/.vs/ProjectEvaluation
-/Implementierung/MusikschuleConsole/bin/Debug/net9.0
+# Build-Ordner
+bin/
+obj/
+
+# Visual Studio Arbeitsordner
+.vs/
+
+# Benutzer- und Einstellungen
+*.user
+*.userosscache
+*.suo
+*.rsuser
+*.sln.docstates
+
+# Verschiedene temporäre Dateien
+*.log
+*.tmp
+*.cache
