@@ -14,7 +14,7 @@ namespace MusikschuleGui.Data
         public string Instrument { get; set; } = "";
         public string? Email { get; set; }
         public string? Telefon { get; set; }
-        
-        //Unterrichts stunden
+
+        public ICollection<Unterrichtsstunde> Unterrichtsstunden { get; set; } = new List<Unterrichtsstunde>();
     }
 }

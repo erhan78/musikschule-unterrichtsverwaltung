@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MusikschuleGui.Data
 {
-    internal class Lehrer
+    public class Lehrer
     {
         public int LehrerId { get; set; }
         public string Vorname { get; set; } = "";
@@ -15,6 +15,6 @@ namespace MusikschuleGui.Data
         public string? Email { get; set; }
         public string? Telefon { get; set; }
 
-        //Unterricht stunde
+        public ICollection<Unterrichtsstunde> Unterrichtsstunden { get; set; } = new List<Unterrichtsstunde>();
     }
 }
