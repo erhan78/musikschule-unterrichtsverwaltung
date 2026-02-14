@@ -20,7 +20,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" VerticalAlignment="Top" Width="250">
-            <Button Content="Schüler verwalten" Margin="0,0,0,10"/>
+            <Button Content="Schüler verwalten" Margin="0,0,0,10" Click="SchuelerButton_Click"/>
             <Button Content="Unterrichtsstunden planen" Margin="0,0,0,10"/>
             <Button Content="Zahlungsübersicht" Margin="0,0,0,10"/>
             <Button Content="Beenden"/>

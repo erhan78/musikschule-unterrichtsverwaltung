@@ -46,7 +46,7 @@
 
             <WrapPanel Margin="0,5,0,0">
                 <Button Content="Neu" Width="80" />
-                <Button Content="Speichern" Width="80" Margin="10,0,0,0"/>
+                <Button Content="Speichern" Width="80" Margin="10,0,0,0" Click="SpeicherButton_Click"/>
                 <Button Content="Löschen" Width="80" Margin="10,0,0,0"/>
                 <Button Content="Schließen" Width="80" Margin="10,0,0,0"/>
             </WrapPanel>

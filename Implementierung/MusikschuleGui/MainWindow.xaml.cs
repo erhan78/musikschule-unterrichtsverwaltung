@@ -20,5 +20,11 @@ namespace MusikschuleGui
         {
             InitializeComponent();
         }
+
+        private void SchuelerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var fenster = new SchuelerWindow();
+            fenster.ShowDialog();
+        }
     }
 }

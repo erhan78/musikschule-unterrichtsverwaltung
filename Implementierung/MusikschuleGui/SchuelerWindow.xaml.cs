@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MusikschuleGui.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +20,25 @@ namespace MusikschuleGui
     /// </summary>
     public partial class SchuelerWindow : Window
     {
+        private readonly MusikschuleContext _db = new();
+
         public SchuelerWindow()
         {
             InitializeComponent();
+        }
+
+        private void SpeicherButton_Click(object sender, RoutedEventArgs e)
+        {
+            var neu = new Schueler
+            {
+                Vorname = txtVorname.Text.Trim(),
+                Nachname = txtNachname.Text.Trim(),
+                Instrument = txtInstrument.Text.Trim(),
+                Email = string.IsNullOrWhiteSpace(txtEmail.Text) ? null : txtEmail.Text.Trim(),
+                Telefon = string.IsNullOrWhiteSpace(txtTelefon.Text) ? null : txtTelefon.Text.Trim()
+            };
+
+            _db.Schueler.Add(neu);
         }
     }
 }
