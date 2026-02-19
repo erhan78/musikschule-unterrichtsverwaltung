@@ -21,8 +21,6 @@ namespace MusikschuleGui
                 // TODO: Seed initial data
             }
 
-            var mainWindow = new MainWindow();
-            mainWindow.Show();
         }
     }
 
