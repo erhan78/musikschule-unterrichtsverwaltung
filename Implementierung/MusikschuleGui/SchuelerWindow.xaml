@@ -13,7 +13,7 @@
         </Grid.RowDefinitions>
 
         <DataGrid x:Name="dgSchueler" Grid.Row="0" AutoGenerateColumns="False"
-                  SelectionMode="Single">
+                  SelectionMode="Single" SelectionChanged="dgSchueler_SelectionChanged">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding SchuelerId}" Width="50"/>
                 <DataGridTextColumn Header="Vorname" Binding="{Binding Vorname}" Width="*"/>

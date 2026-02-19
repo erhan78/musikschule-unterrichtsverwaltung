@@ -24,6 +24,7 @@ namespace MusikschuleGui
     {
         private readonly MusikschuleContext _db = new();
         private ObservableCollection<Schueler> _schuelerListe = new ObservableCollection<Schueler>();
+        private Schueler? _ausgewaehlter;
 
         public SchuelerWindow()
         {
@@ -61,12 +62,43 @@ namespace MusikschuleGui
 
         private void Loeschen_Click(object sender, RoutedEventArgs e)
         {
+            if (_ausgewaehlter == null)
+            {
+                MessageBox.Show("Bitte wählen Sie zuerst einen Schüler aus.",
+                                "Hinweis", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
+            if (MessageBox.Show("Schüler wirklich löschen?",
+                                "Bestätigung", MessageBoxButton.YesNo, MessageBoxImage.Question)
+                != MessageBoxResult.Yes)
+                return;
+
+            var s = _db.Schueler.Find(_ausgewaehlter.SchuelerId);
+            if (s != null)
+            {
+                _db.Schueler.Remove(s);
+                _db.SaveChanges();
+                LadeSchueler();
+                Neu_Click(sender, e);
+            }
         }
 
         private void Schliessen_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void dgSchueler_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _ausgewaehlter = dgSchueler.SelectedItem as Schueler;
+            if (_ausgewaehlter == null) return;
+
+            txtVorname.Text = _ausgewaehlter.Vorname;
+            txtNachname.Text = _ausgewaehlter.Nachname;
+            txtInstrument.Text = _ausgewaehlter.Instrument;
+            txtEmail.Text = _ausgewaehlter.Email;
+            txtTelefon.Text = _ausgewaehlter.Telefon;
         }
     }
 }
