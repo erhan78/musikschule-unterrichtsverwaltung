@@ -1,6 +1,8 @@
-﻿using MusikschuleGui.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MusikschuleGui.Data;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +23,20 @@ namespace MusikschuleGui
     public partial class SchuelerWindow : Window
     {
         private readonly MusikschuleContext _db = new();
+        private ObservableCollection<Schueler> _schuelerListe = new ObservableCollection<Schueler>();
 
         public SchuelerWindow()
         {
             InitializeComponent();
+            LadeSchueler();
         }
 
+        private void LadeSchueler()
+        {
+            _schuelerListe = new ObservableCollection<Schueler>(
+                _db.Schueler.AsNoTracking().OrderBy(s => s.Nachname).ThenBy(s => s.Vorname));
+            dgSchueler.ItemsSource = _schuelerListe;
+        }
         private void SpeicherButton_Click(object sender, RoutedEventArgs e)
         {
             var neu = new Schueler
@@ -39,6 +49,9 @@ namespace MusikschuleGui
             };
 
             _db.Schueler.Add(neu);
+
+            _db.SaveChanges();
+            LadeSchueler();
         }
     }
 }
