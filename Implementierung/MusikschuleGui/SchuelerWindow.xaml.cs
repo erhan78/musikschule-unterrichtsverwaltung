@@ -57,7 +57,12 @@ namespace MusikschuleGui
 
         private void Neu_Click(object sender, RoutedEventArgs e)
         {
-
+            _ausgewaehlter = null;
+            txtVorname.Text = "";
+            txtNachname.Text = "";
+            txtInstrument.Text = "";
+            txtEmail.Text = "";
+            txtTelefon.Text = "";
         }
 
         private void Loeschen_Click(object sender, RoutedEventArgs e)
