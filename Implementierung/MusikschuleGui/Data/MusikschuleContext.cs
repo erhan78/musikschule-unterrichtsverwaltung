@@ -8,16 +8,26 @@ using System.Threading.Tasks;
 
 namespace MusikschuleGui.Data
 {
-    public class MusikschuleContext
+    public class MusikschuleContext : DbContext
     {
         public DbSet<Schueler> Schueler { get; set; }
         public DbSet<Lehrer> Lehrer { get; set; }
         public DbSet<Unterrichtsstunde> Unterrichtsstunden { get; set; }
-        
+
+        private readonly string _dbPath;
 
         public MusikschuleContext()
         {
+            var folder = Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+                "Musikschule");
 
+            Directory.CreateDirectory(folder);
+            _dbPath = Path.Combine(folder, "musikschule.db");
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite($"Data Source={_dbPath}");
         }
     }
 }
