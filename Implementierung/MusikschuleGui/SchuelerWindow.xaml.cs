@@ -40,16 +40,31 @@ namespace MusikschuleGui
         }
         private void SpeicherButton_Click(object sender, RoutedEventArgs e)
         {
-            var neu = new Schueler
+            if (_ausgewaehlter == null)
             {
-                Vorname = txtVorname.Text.Trim(),
-                Nachname = txtNachname.Text.Trim(),
-                Instrument = txtInstrument.Text.Trim(),
-                Email = string.IsNullOrWhiteSpace(txtEmail.Text) ? null : txtEmail.Text.Trim(),
-                Telefon = string.IsNullOrWhiteSpace(txtTelefon.Text) ? null : txtTelefon.Text.Trim()
-            };
+                var neu = new Schueler
+                {
+                    Vorname = txtVorname.Text.Trim(),
+                    Nachname = txtNachname.Text.Trim(),
+                    Instrument = txtInstrument.Text.Trim(),
+                    Email = string.IsNullOrWhiteSpace(txtEmail.Text) ? null : txtEmail.Text.Trim(),
+                    Telefon = string.IsNullOrWhiteSpace(txtTelefon.Text) ? null : txtTelefon.Text.Trim()
+                };
 
-            _db.Schueler.Add(neu);
+                _db.Schueler.Add(neu);
+            }
+            else
+            {
+                var s = _db.Schueler.Find(_ausgewaehlter.SchuelerId);
+                if (s != null)
+                {
+                    s.Vorname = txtVorname.Text.Trim();
+                    s.Nachname = txtNachname.Text.Trim();
+                    s.Instrument = txtInstrument.Text.Trim();
+                    s.Email = string.IsNullOrWhiteSpace(txtEmail.Text) ? null : txtEmail.Text.Trim();
+                    s.Telefon = string.IsNullOrWhiteSpace(txtTelefon.Text) ? null : txtTelefon.Text.Trim();
+                }
+            }
 
             _db.SaveChanges();
             LadeSchueler();
