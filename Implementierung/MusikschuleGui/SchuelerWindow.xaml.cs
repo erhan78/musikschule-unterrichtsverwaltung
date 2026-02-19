@@ -83,6 +83,7 @@ namespace MusikschuleGui
                 }
             }
 
+            Neu_Click(sender, e);
             _db.SaveChanges();
             LadeSchueler();
         }
