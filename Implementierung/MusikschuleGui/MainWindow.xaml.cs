@@ -26,5 +26,20 @@ namespace MusikschuleGui
             var fenster = new SchuelerWindow();
             fenster.ShowDialog();
         }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Unterricht_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Zahlungen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
