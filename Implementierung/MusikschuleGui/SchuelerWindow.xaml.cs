@@ -53,5 +53,20 @@ namespace MusikschuleGui
             _db.SaveChanges();
             LadeSchueler();
         }
+
+        private void Neu_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Loeschen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Schliessen_Click(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
     }
 }
