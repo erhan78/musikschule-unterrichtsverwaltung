@@ -38,8 +38,25 @@ namespace MusikschuleGui
                 _db.Schueler.AsNoTracking().OrderBy(s => s.Nachname).ThenBy(s => s.Vorname));
             dgSchueler.ItemsSource = _schuelerListe;
         }
+
+        private bool PruefePflichtfelder()
+        {
+            if (string.IsNullOrWhiteSpace(txtVorname.Text) ||
+                string.IsNullOrWhiteSpace(txtNachname.Text) ||
+                string.IsNullOrWhiteSpace(txtInstrument.Text))
+            {
+                MessageBox.Show("Vorname, Nachname und Instrument sind Pflichtfelder.",
+                                "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            return true;
+        }
+
         private void SpeicherButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!PruefePflichtfelder())
+                return;
+
             if (_ausgewaehlter == null)
             {
                 var neu = new Schueler
