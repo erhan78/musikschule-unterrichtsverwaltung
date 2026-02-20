@@ -3,6 +3,7 @@ using MusikschuleGui.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,8 @@ namespace MusikschuleGui
         private ObservableCollection<Schueler> _schueler = new ObservableCollection<Schueler>();
 
         private ObservableCollection<Lehrer> _lehrer = new ObservableCollection<Lehrer>();
-        
+
+        private Unterrichtsstunde? _ausgewaehlteStunde;
         public UnterrichtWindow()
         {
             InitializeComponent();
@@ -62,10 +64,24 @@ namespace MusikschuleGui
             dgStunden.ItemsSource = _stunden;
         }
 
+        private void NeuFormular()
+        {
+            _ausgewaehlteStunde = null;
+            dpDatum.SelectedDate = DateTime.Today;
+            txtUhrzeit.Text = "15:00";
+            txtDauer.Text = "45";
+            txtPreis.Text = "40,00";
+            cbStatus.SelectedIndex = 0;
+            cbZahlung.SelectedIndex = 0;
+            cbSchueler.SelectedIndex = _schueler.Any() ? 0 : -1;
+            cbLehrer.SelectedIndex = _lehrer.Any() ? 0 : -1;
+        }
+
+
 
         private void Neu_Click(object sender, RoutedEventArgs e)
         {
-
+            NeuFormular();
         }
 
         private void Speichern_Click(object sender, RoutedEventArgs e)
@@ -81,6 +97,32 @@ namespace MusikschuleGui
         private void Schliessen_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void dgStunden_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            _ausgewaehlteStunde = dgStunden.SelectedItem as Unterrichtsstunde;
+            if (_ausgewaehlteStunde == null) return;
+
+            var u = _db.Unterrichtsstunden
+                .Include(x => x.Schueler)
+                .Include(x => x.Lehrer)
+                .FirstOrDefault(x => x.UnterrichtsstundeId == _ausgewaehlteStunde.UnterrichtsstundeId);
+
+            if (u == null) return;
+
+            cbSchueler.SelectedItem = _schueler.First(s => s.SchuelerId == u.SchuelerId);
+            cbLehrer.SelectedItem = _lehrer.First(l => l.LehrerId == u.LehrerId);
+            dpDatum.SelectedDate = u.DatumUhrzeit.Date;
+            txtUhrzeit.Text = u.DatumUhrzeit.ToString("HH:mm");
+            txtDauer.Text = u.DauerMinuten.ToString(CultureInfo.InvariantCulture);
+            txtPreis.Text = u.PreisProStunde.ToString("F2", CultureInfo.GetCultureInfo("de-DE"));
+            cbStatus.SelectedItem = cbStatus.Items
+                .Cast<ComboBoxItem>()
+                .FirstOrDefault(i => (string)i.Content == u.Status);
+            cbZahlung.SelectedItem = cbZahlung.Items
+                .Cast<ComboBoxItem>()
+                .FirstOrDefault(i => (string)i.Content == u.Zahlungsstatus);
         }
     }
 }
