@@ -1,4 +1,5 @@
 # Musikschule – Unterrichtsverwaltung
+[![.NET Tests](https://github.com/erhan78/musikschule-unterrichtsverwaltung/actions/workflows/dotnet-tests.yml/badge.svg)](https://github.com/erhan78/musikschule-unterrichtsverwaltung/actions/workflows/dotnet-tests.yml)
 
 Dieses Projekt ist ein Verwaltungssystem für eine Musikschule.
 Musiklehrer können ihre Schüler verwalten, Unterrichtstermine planen
