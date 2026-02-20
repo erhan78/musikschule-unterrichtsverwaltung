@@ -206,12 +206,31 @@ namespace MusikschuleGui
 
         private void Loeschen_Click(object sender, RoutedEventArgs e)
         {
+            if (_ausgewaehlteStunde == null)
+            {
+                MessageBox.Show("Bitte wählen Sie zuerst eine Unterrichtsstunde aus.",
+                    "Hinweis", MessageBoxButton.OK, MessageBoxImage.Information);
+                return;
+            }
 
+            if (MessageBox.Show("Unterrichtsstunde wirklich löschen?",
+                    "Bestätigung", MessageBoxButton.YesNo, MessageBoxImage.Question)
+                != MessageBoxResult.Yes)
+                return;
+
+            var u = _db.Unterrichtsstunden.Find(_ausgewaehlteStunde.UnterrichtsstundeId);
+            if (u != null)
+            {
+                _db.Unterrichtsstunden.Remove(u);
+                _db.SaveChanges();
+                LadeUnterrichtsstunden();
+                NeuFormular();
+            }
         }
 
         private void Schliessen_Click(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
 
         private void dgStunden_SelectionChanged(object sender, SelectionChangedEventArgs e)
