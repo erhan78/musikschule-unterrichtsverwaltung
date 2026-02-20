@@ -3,6 +3,7 @@ using MusikschuleGui.Data;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,14 +51,43 @@ namespace MusikschuleGui
             }
         }
 
+        private void AktualisiereUebersicht()
+        {
+            if (cbSchueler.SelectedItem is not Schueler s)
+            {
+                dgStunden.ItemsSource = null;
+                txtSummeAlle.Text = "";
+                txtSummeOffen.Text = "";
+                return;
+            }
+
+            var stunden = _db.Unterrichtsstunden
+                .Include(u => u.Lehrer)
+                .Where(u => u.SchuelerId == s.SchuelerId)
+                .AsNoTracking()
+                .OrderBy(u => u.DatumUhrzeit)
+                .ToList();
+
+            dgStunden.ItemsSource = stunden;
+
+            decimal sumAlle = stunden.Sum(u => u.Betrag);
+            decimal sumOffen = stunden
+                .Where(u => string.Equals(u.Zahlungsstatus, "offen", StringComparison.OrdinalIgnoreCase))
+                .Sum(u => u.Betrag);
+
+            var culture = CultureInfo.GetCultureInfo("de-DE");
+            txtSummeAlle.Text = $"Summe aller Stunden: {sumAlle.ToString("C", culture)}";
+            txtSummeOffen.Text = $"Davon offen: {sumOffen.ToString("C", culture)}";
+        }
+
         private void cbSchueler_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            AktualisiereUebersicht();
         }
 
         private void Schließen_Click(object sender, RoutedEventArgs e)
         {
-
+            Close();
         }
     }
 }
