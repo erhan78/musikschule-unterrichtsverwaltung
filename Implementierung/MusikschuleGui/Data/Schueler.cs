@@ -16,5 +16,9 @@ namespace MusikschuleGui.Data
         public string? Telefon { get; set; }
 
         public ICollection<Unterrichtsstunde> Unterrichtsstunden { get; set; } = new List<Unterrichtsstunde>();
+
+        public override string ToString()
+            => $"{Vorname} {Nachname} ({Instrument})";
+
     }
 }

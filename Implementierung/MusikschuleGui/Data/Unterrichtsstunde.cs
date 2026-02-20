@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,6 +23,10 @@ namespace MusikschuleGui.Data
 
         public string Zahlungsstatus { get; set; } = "offen";       // offen / bezahlt
         public string Status { get; set; } = "geplant";             // geplant / durchgeführt / abgesagt
+
+        [NotMapped]
+        public decimal Betrag => Math.Round((decimal)DauerMinuten / 60m * PreisProStunde, 2);
+
     }
 }
 
