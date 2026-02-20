@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace MusikschuleGui
 {
@@ -83,10 +84,124 @@ namespace MusikschuleGui
         {
             NeuFormular();
         }
+        private bool PruefeEingaben(out Schueler schueler, out Lehrer lehrer,
+                                    out DateTime datumUhrzeit,
+                                    out int dauer, out decimal preis,
+                                    out string status, out string zahlung)
+        {
+            schueler = null!;
+            lehrer = null!;
+            datumUhrzeit = DateTime.MinValue;
+            dauer = 0;
+            preis = 0;
+            status = "";
+            zahlung = "";
+
+            if (cbSchueler.SelectedItem is not Schueler s)
+            {
+                MessageBox.Show("Bitte wählen Sie einen Schüler aus.",
+                    "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+            if (cbLehrer.SelectedItem is not Lehrer l)
+            {
+                MessageBox.Show("Bitte wählen Sie einen Lehrer aus.",
+                    "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (dpDatum.SelectedDate == null)
+            {
+                MessageBox.Show("Bitte wählen Sie ein Datum.",
+                    "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!TimeSpan.TryParse(txtUhrzeit.Text, out var zeit))
+            {
+                MessageBox.Show("Bitte geben Sie eine gültige Uhrzeit ein.",
+                    "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            datumUhrzeit = dpDatum.SelectedDate.Value.Date + zeit;
+
+            if (!int.TryParse(txtDauer.Text, out dauer) || dauer <= 0 || dauer > 300)
+            {
+                MessageBox.Show("Die Dauer muss eine positive Zahl zwischen 1 und 300 Minuten sein.",
+                    "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (!decimal.TryParse(txtPreis.Text, NumberStyles.Number,
+                    CultureInfo.GetCultureInfo("de-DE"), out preis) || preis <= 0 || preis > 200)
+            {
+                MessageBox.Show("Der Preis pro Stunde muss eine positive Zahl sein.",
+                    "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
+
+            if (cbStatus.SelectedItem is ComboBoxItem statusItem)
+                status = statusItem.Content?.ToString() ?? "geplant";
+            else
+                status = "geplant";
+
+            if (cbZahlung.SelectedItem is ComboBoxItem zahlungItem)
+                zahlung = zahlungItem.Content?.ToString() ?? "offen";
+            else
+                zahlung = "offen";
+
+            schueler = s;
+            lehrer = l;
+            return true;
+        }
 
         private void Speichern_Click(object sender, RoutedEventArgs e)
         {
+                if (!PruefeEingaben(out var schueler, out var lehrer, out var datumUhrzeit,
+                    out var dauer, out var preis, out var status, out var zahlung))
+                {
+                    return;
+            }
 
+            if (_ausgewaehlteStunde == null)
+            {
+                var neu = new Unterrichtsstunde
+                {
+                    SchuelerId = schueler.SchuelerId,
+                    LehrerId = lehrer.LehrerId,
+                    DatumUhrzeit = datumUhrzeit,
+                    DauerMinuten = dauer,
+                    PreisProStunde = preis,
+                    Status = status,
+                    Zahlungsstatus = zahlung
+                };
+                _db.Unterrichtsstunden.Add(neu);
+            }
+            else
+            {
+                var u = _db.Unterrichtsstunden.Find(_ausgewaehlteStunde.UnterrichtsstundeId);
+                if (u == null)
+                {
+                    MessageBox.Show("Die ausgewählte Unterrichtsstunde existiert nicht mehr.",
+                        "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
+                    LadeUnterrichtsstunden();
+                    NeuFormular();
+                    return;
+                }
+
+                u.SchuelerId = schueler.SchuelerId;
+                u.LehrerId = lehrer.LehrerId;
+                u.DatumUhrzeit = datumUhrzeit;
+                u.DauerMinuten = dauer;
+                u.PreisProStunde = preis;
+                u.Status = status;
+                u.Zahlungsstatus = zahlung;
+            }
+
+            _db.SaveChanges();
+            LadeUnterrichtsstunden();
+            NeuFormular();
         }
 
         private void Loeschen_Click(object sender, RoutedEventArgs e)
