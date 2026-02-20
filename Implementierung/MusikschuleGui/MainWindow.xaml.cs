@@ -34,7 +34,8 @@ namespace MusikschuleGui
 
         private void Unterricht_Click(object sender, RoutedEventArgs e)
         {
-
+            var fenster = new UnterrichtWindow();
+            fenster.ShowDialog();
         }
 
         private void Zahlungen_Click(object sender, RoutedEventArgs e)
