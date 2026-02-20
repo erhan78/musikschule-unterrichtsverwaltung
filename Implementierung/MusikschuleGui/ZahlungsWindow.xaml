@@ -6,7 +6,42 @@
         xmlns:local="clr-namespace:MusikschuleGui"
         mc:Ignorable="d"
         Title="ZahlungsWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,0,0,10">
+            <TextBlock Text="Schüler:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+            <ComboBox x:Name="cbSchueler" Width="250" Margin="0,0,10,0"
+                      SelectionChanged="cbSchueler_SelectionChanged"/>
+            <Button Content="Schließen" Width="80" Click="Schließen_Click"/>
+        </StackPanel>
+
+        <DataGrid x:Name="dgStunden" Grid.Row="1" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Datum/Uhrzeit"
+                                    Binding="{Binding DatumUhrzeit, StringFormat=dd.MM.yyyy HH:mm}" Width="150"/>
+                <DataGridTextColumn Header="Dauer (Min)"
+                                    Binding="{Binding DauerMinuten}" Width="80"/>
+                <DataGridTextColumn Header="Preis/Stunde"
+                                    Binding="{Binding PreisProStunde}" Width="90"/>
+                <DataGridTextColumn Header="Betrag"
+                                    Binding="{Binding Betrag}" Width="90"/>
+                <DataGridTextColumn Header="Status"
+                                    Binding="{Binding Status}" Width="90"/>
+                <DataGridTextColumn Header="Zahlung"
+                                    Binding="{Binding Zahlungsstatus}" Width="90"/>
+                <DataGridTextColumn Header="Lehrer"
+                                    Binding="{Binding Lehrer.Vorname}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Grid.Row="2" Orientation="Vertical" Margin="0,10,0,0">
+            <TextBlock x:Name="txtSummeAlle" FontWeight="Bold" />
+            <TextBlock x:Name="txtSummeOffen" FontWeight="Bold" />
+        </StackPanel>
     </Grid>
 </Window>

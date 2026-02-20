@@ -23,5 +23,15 @@ namespace MusikschuleGui
         {
             InitializeComponent();
         }
+
+        private void cbSchueler_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Schließen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -40,7 +40,8 @@ namespace MusikschuleGui
 
         private void Zahlungen_Click(object sender, RoutedEventArgs e)
         {
-
+            var fenster = new ZahlungsWindow();
+            fenster.ShowDialog();
         }
     }
 }
