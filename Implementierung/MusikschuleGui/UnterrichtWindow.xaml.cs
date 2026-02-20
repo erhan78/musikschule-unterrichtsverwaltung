@@ -23,5 +23,25 @@ namespace MusikschuleGui
         {
             InitializeComponent();
         }
+
+        private void Neu_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Speichern_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Loeschen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Schliessen_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
