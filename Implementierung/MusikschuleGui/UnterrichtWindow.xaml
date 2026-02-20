@@ -36,6 +36,50 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <WrapPanel Margin="0,0,0,5">
+                <TextBlock Text="Schüler:" Width="70"/>
+                <ComboBox x:Name="cbSchueler" Width="200"/>
+
+                <TextBlock Text="Lehrer:" Width="70" Margin="20,0,0,0"/>
+                <ComboBox x:Name="cbLehrer" Width="200"/>
+            </WrapPanel>
+
+            <WrapPanel Margin="0,0,0,5">
+                <TextBlock Text="Datum:" Width="70"/>
+                <DatePicker x:Name="dpDatum" Width="150"/>
+
+                <TextBlock Text="Uhrzeit:" Width="70" Margin="20,0,0,0"/>
+                <TextBox x:Name="txtUhrzeit" Width="80" Text="15:00"/>
+
+                <TextBlock Text="Dauer (Min):" Width="90" Margin="20,0,0,0"/>
+                <TextBox x:Name="txtDauer" Width="60" Text="45"/>
+            </WrapPanel>
+
+            <WrapPanel Margin="0,0,0,5">
+                <TextBlock Text="Preis/Stunde:" Width="90"/>
+                <TextBox x:Name="txtPreis" Width="80" Text="40,00"/>
+
+                <TextBlock Text="Status:" Width="60" Margin="20,0,0,0"/>
+                <ComboBox x:Name="cbStatus" Width="130">
+                    <ComboBoxItem Content="geplant" IsSelected="True"/>
+                    <ComboBoxItem Content="durchgeführt"/>
+                    <ComboBoxItem Content="abgesagt"/>
+                </ComboBox>
+
+                <TextBlock Text="Zahlung:" Width="60" Margin="20,0,0,0"/>
+                <ComboBox x:Name="cbZahlung" Width="130">
+                    <ComboBoxItem Content="offen" IsSelected="True"/>
+                    <ComboBoxItem Content="bezahlt"/>
+                </ComboBox>
+            </WrapPanel>
+
+            <WrapPanel Margin="0,5,0,0">
+                <Button Content="Neu" Width="80"/>
+                <Button Content="Speichern" Width="80" Margin="10,0,0,0"/>
+                <Button Content="Löschen" Width="80" Margin="10,0,0,0"/>
+                <Button Content="Schließen" Width="80" Margin="10,0,0,0"/>
+            </WrapPanel>
+        </StackPanel>
     </Grid>
 </Window>
