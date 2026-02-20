@@ -34,6 +34,7 @@ namespace MusikschuleGui
         {
             InitializeComponent();
             LadeStammdaten();
+            LadeUnterrichtsstunden();
         }
 
         private void LadeStammdaten()
@@ -47,6 +48,18 @@ namespace MusikschuleGui
 
             cbSchueler.ItemsSource = _schueler;
             cbLehrer.ItemsSource = _lehrer;
+        }
+
+        private void LadeUnterrichtsstunden()
+        {
+            _stunden = new ObservableCollection<Unterrichtsstunde>(
+                _db.Unterrichtsstunden
+                    .Include(u => u.Schueler)
+                    .Include(u => u.Lehrer)
+                    .AsNoTracking()
+                    .OrderBy(u => u.DatumUhrzeit));
+
+            dgStunden.ItemsSource = _stunden;
         }
 
 
